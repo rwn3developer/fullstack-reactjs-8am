@@ -3,80 +3,43 @@ import { useEffect, useState } from 'react';
 
 export const AddForm = ({ onchange, single }) => {
 
-    const [editid, setEditId] = useState("")
+    // const [editid, setEditId] = useState("")
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
     const [data, setData] = useState([])
 
 
-
-    const hendalsubmit = (event) => {
-        event.preventDefault()
-
+    const hendalsubmit = (e) => {
+        e.preventDefault();
         let obj = {
-            id: Math.floor(Math.random() * 100),
-            name: name,
-            phone: phone
+            id : Math.floor(Math.random()*1000),
+            name,phone
         }
-
-        if (editid) {
-            let data = JSON.parse(localStorage.getItem('data')) ? JSON.parse(localStorage.getItem('data')) : [];
-            let u = data.map((item)=>{
-                if(item.id == editid){
-                    return {
-                        ...item,
-                        name : name,
-                        phone : phone
-                    }
-                }
-                return item
-            })
-            localStorage.setItem('data',JSON.stringify(u));
-            alert("Record update");
-            setEditId("");
-        } else {
-            setData([...data, obj])
-            let localData = JSON.parse(localStorage.getItem('data')) || [];
-
-            let MergeData = [...localData, obj]
-
-            localStorage.setItem('data', JSON.stringify(MergeData))
-        }
-
-
-        setName('')
-        setPhone('')
-        let Alldata = JSON.parse(localStorage.getItem('data'));
-        // setData(Alldata)
-        onchange(Alldata)
-
+        let alldata = JSON.parse(localStorage.getItem("user")) || [];
+        let mergedata = [...alldata,obj];
+        setData(mergedata)
+        localStorage.setItem('user',JSON.stringify(mergedata))
+        setName("");
+        setPhone("");
     }
 
-    useEffect(() => {
-        if (single) {
-            setEditId(single.id)
-            setName(single.name)
-            setPhone(single.phone)
-        }
-    }, [single])
 
+  
 
     return (
         <Form onSubmit={hendalsubmit}>
             <Form.Group className="mb-3" controlId="formGroupEmail">
                 <Form.Label>Name</Form.Label>
-                <Form.Control type="text" placeholder="Enter Name" onChange={(event) => setName(event.target.value)} value={name} />
+                <Form.Control type="text" onChange={ (e) => setName(e.target.value) } value={name} placeholder="Enter Name"/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formGroupPassword">
                 <Form.Label>Phone Number</Form.Label>
-                <Form.Control type="number" placeholder="Enter Phone Number" onChange={(event) => setPhone(event.target.value)} value={phone} />
-                {
-                    editid ? (
-                        <button type='submit' className='btn btn-success mt-4' >Update</button>
-                    ) : (
-                        <button type='submit' className='btn btn-success mt-4' >Save</button>
-                    )
-                }
+                <Form.Control type="number" onChange={ (e) => setPhone(e.target.value) } value={phone} placeholder="Enter Phone Number"/>
+            
+        
+                <button type='submit' className='btn btn-success mt-4' >Save</button>
+                    
+            
 
             </Form.Group>
         </Form>
