@@ -5,6 +5,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import './app.css'
 import About from "./pages/View";
 import Contact from "./pages/Contact";
+import Edit from "./pages/Edit";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home/>}></Route>
                 <Route path="/view" element={<About/>}></Route>
+                <Route path="/edit/:editid" element={<Edit/>}></Route>
             </Routes>
         </BrowserRouter>
       </>

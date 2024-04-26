@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { Link } from 'react-router-dom';
 
 const About = () => {
 
   const [data, setData] = useState(JSON.parse(localStorage.getItem('users')) || []);
-
 
   const deleteUser = (id) => {
     let alldata = [...data];
@@ -25,7 +25,7 @@ const About = () => {
         {
           data.map((item) => {
             return (
-              <div className="col-lg-4 mb-5 d-flex justify-content-center">
+              <div key={item.id} className="col-lg-4 mb-5 d-flex justify-content-center">
 
                 <Card key={item.id} style={{ width: '18rem' }}>
                   <Card.Body>
@@ -34,7 +34,9 @@ const About = () => {
                       {`Phone :- ${item.phone}`}
                     </Card.Text>
                     <Button onClick={ () => deleteUser(item.id) } variant="danger">Delete</Button>
-                    <Button variant="primary">Edit</Button>
+                    <Link to={`/edit/${item.id}`}>
+                      <Button   variant="primary">Edit</Button>
+                    </Link>
                   </Card.Body>
                 </Card>
 
