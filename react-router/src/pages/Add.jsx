@@ -9,12 +9,13 @@ const Home = () => {
   const [name,setName] = useState("")
   const [phone,setPhone] = useState("")
   const [record,setRecord] = useState([])
+  const [status,setStatus] = useState("")
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     let obj = {
-      id : Math.floor(Math.random()*10000),name,phone
+      id : Math.floor(Math.random()*10000),name,phone,status
     }
 
     let olddata = [...record,obj];
@@ -24,7 +25,6 @@ const Home = () => {
     setName("");
     setPhone("");
     navigate('/view');
-
   }
 
   useEffect(()=>{
@@ -47,6 +47,18 @@ const Home = () => {
               <Form.Label>Phone :- </Form.Label>
               <Form.Control type="tel" onChange={ (e) => setPhone(e.target.value) } value={phone} placeholder="Enter no"/>
             </Form.Group>
+
+
+            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+              <Form.Label>Status :- </Form.Label>
+              <select onChange={ (e) => setStatus(e.target.value) } value={status} className='form-control'>
+                  <option disabled value="" selected >---select status----</option>
+                  <option  value="active">Active</option>
+                  <option value="deactive">Deactive</option>
+              </select>
+            </Form.Group>
+
+
             <button type='submit' className='btn btn-success'>Submit</button>
           </Form>
         </div>

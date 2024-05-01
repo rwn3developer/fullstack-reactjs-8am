@@ -3,10 +3,12 @@ import Header from '../components/Header'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
+import UserList from './UserList';
 
 const About = () => {
 
   const [data, setData] = useState(JSON.parse(localStorage.getItem('users')) || []);
+  const [searchFilter,setSearchFilter] = useState([])
 
   const deleteUser = (id) => {
     let alldata = [...data];
@@ -16,36 +18,24 @@ const About = () => {
     alert("Record delete")
   }
 
+  const searchName = (value) => {
+      let s = data.filter((item)=>{
+        return item.name.toLowerCase().includes(value.toLowerCase());
+      })
+      setSearchFilter(s)
+  }
+
 
   return (
     <>
       <Header />
       <h1>View User</h1>
-      <div className="row">
-        {
-          data.map((item) => {
-            return (
-              <div key={item.id} className="col-lg-4 mb-5 d-flex justify-content-center">
-
-                <Card key={item.id} style={{ width: '18rem' }}>
-                  <Card.Body>
-                    <Card.Title>{`Name :- ${item.name}`}</Card.Title>
-                    <Card.Text>
-                      {`Phone :- ${item.phone}`}
-                    </Card.Text>
-                    <Button onClick={ () => deleteUser(item.id) } variant="danger">Delete</Button>
-                    <Link to={`/edit/${item.id}`}>
-                      <Button   variant="primary">Edit</Button>
-                    </Link>
-                  </Card.Body>
-                </Card>
-
-              </div>
-            )
-          })
-        }
-
-      </div>
+      <UserList 
+          data={data}
+          deleteUser={deleteUser}
+          searchName={searchName}
+          searchFilter={searchFilter}
+      />
     </>
   )
 }
