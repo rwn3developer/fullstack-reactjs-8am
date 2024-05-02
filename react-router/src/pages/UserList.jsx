@@ -5,8 +5,8 @@ import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 
-const UserList = ({ data, deleteUser ,searchName,searchFilter}) => {
-
+const UserList = ({ data, deleteUser ,searchName,searchFilter,handleSort,handleStatus}) => {
+    
     let alldata = searchFilter.length!=0 ? searchFilter : data
 
     return (
@@ -16,15 +16,24 @@ const UserList = ({ data, deleteUser ,searchName,searchFilter}) => {
 
                 <div className='col-12 d-flex p-4 justify-content-center'>
                     <div className='col-4'>
-                        hii
+                    <select className='form-control' onChange={handleStatus}>
+                            <option value="">---select---</option>
+                            <option value="all">all</option>
+                            <option value="active">Active</option>
+                            <option value="deactive">Deactive</option>
+                       </select>
                     </div>
                     <div className='col-4'>
-                        <form>
-                            <input type="text" onChange={ (e) => searchName(e.target.value) } className='form-control w-50' placeholder='search name' />
+                        <form className='px-5'>
+                            <input type="text" onChange={ (e) => searchName(e.target.value) } className='form-control' placeholder='search name' />
                         </form>
                     </div>
                     <div className='col-4'>
-                        hii
+                       <select className='form-control' onChange={handleSort}>
+                            <option value="">---select---</option>
+                            <option value="ascending">Ascending</option>
+                            <option value="decending">Decending</option>
+                       </select>
                     </div>
                 </div>
 
