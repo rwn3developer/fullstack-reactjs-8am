@@ -1,29 +1,19 @@
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Decrement, Increment } from './redux/action/action';
-
+import { BrowserRouter , Routes , Route } from "react-router-dom"
+import Counter from "./Counter"
+import View from "./View"
+import Add from "./Add"
+import Edit from "./Edit"
 
 function App() {
-  const dispatch = useDispatch();
-  const no = useSelector(state => state.count);
-
-  const plus = () => {
-    dispatch(Increment())
-  }
-
-
-  const minus = () => {
-    dispatch(Decrement())
-  }
-  
-
   return (
-    <>
-        <h2>Counter App</h2>
-        <h3>Count :- {no}</h3>
-        <button onClick={ () => plus() }>+</button>
-        <button onClick={ () => minus() }>-</button>
-    </>
+      <BrowserRouter>
+            <Routes>
+                  <Route path="/" element={<Counter/>}/>
+                  <Route path="/crud" element={<View/>}/>
+                  <Route path="/Add" element={<Add/>}/>
+                  <Route path="/edit/:id" element={<Edit/>}/>
+            </Routes>
+      </BrowserRouter>
   )
 }
 
