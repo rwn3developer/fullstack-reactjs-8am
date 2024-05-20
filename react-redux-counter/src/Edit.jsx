@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom';
-import { EDIT_USER } from './action/crudAction';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { EDIT_USER, UPDATE_USER } from './action/crudAction';
 
 const Edit = () => {
+    const navigate = useNavigate()
     const dispatch = useDispatch();
     const {id} = useParams();
     const [name,setName] = useState("")
@@ -21,9 +22,17 @@ const Edit = () => {
     },[singleUser])
 
 
-
     const handleSubmit = (e) => {
-       
+        e.preventDefault()
+        let obj = {
+            id : id,
+            name : name,
+            phone : phone
+        }
+       dispatch(UPDATE_USER(obj))
+       alert("Record successfully update")
+       navigate('/crud')
+
     }
 
    

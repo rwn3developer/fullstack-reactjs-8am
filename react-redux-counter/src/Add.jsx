@@ -14,7 +14,7 @@ const Add = () => {
             id : Math.floor(Math.random()*10000),
             name,phone
         }
-        dispatch(ADD_USER(obj))
+        dispatch(ADD_USER(obj))//pass to action 
         alert("Record Add")
         setName("");
         setPhone("");

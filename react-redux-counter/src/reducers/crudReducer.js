@@ -8,7 +8,7 @@ const crudReducer = (state=initialState,action) => {
 
         case 'add':
         const old = [...state.users,action.payload];
-        let a = localStorage.setItem('users',JSON.stringify(old));
+        localStorage.setItem('users',JSON.stringify(old));
         return {
             ...state,
             users : old
@@ -30,6 +30,24 @@ const crudReducer = (state=initialState,action) => {
             ...state,
             user : singleUser
         }
+
+        case "update":
+            let updateId = action.payload.id;
+            let up = state.users.map((item)=>{
+                if(item.id == updateId){
+                    return {
+                        ...item,
+                        name:action.payload.name,
+                        phone:action.payload.phone
+                    }
+                }
+                return item
+            })
+           localStorage.setItem('users',JSON.stringify(up));
+         return {
+            ...state,
+            users : up
+         }
 
         default : 
             return state;

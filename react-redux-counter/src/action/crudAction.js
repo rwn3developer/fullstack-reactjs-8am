@@ -25,3 +25,10 @@ export const EDIT_USER = (id) => {
     }
 }
 
+export const UPDATE_USER = (data) => {
+    return {
+        type : 'update',
+        payload : data
+    }
+}
+
