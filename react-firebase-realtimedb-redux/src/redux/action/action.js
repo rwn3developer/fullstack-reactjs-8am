@@ -7,5 +7,13 @@ export const ADD_USER = (obj) => {
     }
 }
 
+export const GET_USER = () => {
+    return async(dispatch) => {
+        dispatch({
+            type : 'getuser'
+        })
+    }
+}
+
 
 
