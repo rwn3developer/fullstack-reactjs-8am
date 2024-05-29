@@ -4,9 +4,11 @@ import Header from '../component/Header'
 import { useDispatch } from 'react-redux'
 // import { ADD_USER, UPDATE_USER } from '../redux/action/action'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { EDIT_EMP } from '../redux/action/action'
 
 const Edit = () => {
     const location = useLocation();
+    console.log(location);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [editid,setEditid] = useState("")
@@ -18,11 +20,11 @@ const Edit = () => {
     const handleSubmit = (e)=>{
         e.preventDefault()
         const obj = {
-            id  : editid,
+            id : editid,
             name : name,
             phone : phone
         }
-        dispatch(UPDATE_USER(obj))
+        dispatch(EDIT_EMP(obj))
         setName("")
         setPhone("")
         setEditid("")
@@ -31,9 +33,9 @@ const Edit = () => {
     }
 
     useEffect(()=>{
-        setEditid(location.state[0]);
-        setName(location.state[1].name)
-        setPhone(location.state[1].phone)
+        setEditid(location.state.id)
+        setName(location.state.name)
+        setPhone(location.state.phone)
     },[])
 
     return (

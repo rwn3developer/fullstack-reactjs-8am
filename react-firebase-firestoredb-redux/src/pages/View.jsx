@@ -1,14 +1,15 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Link } from "react-router-dom"
-import { GET_USER } from "../redux/action/action";
+import { Link, useNavigate } from "react-router-dom"
+import { GET_USER , DELETE_EMP } from "../redux/action/action";
 
 
 
 const View = () => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     
     const dispatch = useDispatch();
+    const [record,setRecord] = useState([])
 
     useEffect(()=>{
         dispatch(GET_USER())
@@ -24,9 +25,8 @@ const View = () => {
                 id : val.id,
                 ...val.data()
            }))
-           console.log(record);
+           setRecord(record)
         }
-       
     },[alluser])
 
    
@@ -46,16 +46,16 @@ const View = () => {
                 </thead>
                 <tbody>
                     {
-                        [].map(([key,value])=>{
+                        record.map((value)=>{
                             return(
-                                <tr key={key}>
-                                    <td>{key}</td>
+                                <tr key={value.id}>
+                                    <td>{value.id}</td>
                                     <td>{value.name}</td>
                                     <td>{value.phone}</td>
                                     <td>
-                                        <button onClick={ () => dispatch(DELETE_USER(key)) } >Delete</button>
+                                        <button onClick={ () => dispatch(DELETE_EMP(value.id)) } >Delete</button>
                                       
-                                        <button onClick={ () => navigate(`/edit`,{state : [key,value]}) }>Edit</button>
+                                        <button onClick={ () => navigate(`/edit`,{state : value}) }>Edit</button>
                                        
                                     </td>
                                 </tr>

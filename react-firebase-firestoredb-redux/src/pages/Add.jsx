@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import Header from '../component/Header'
-
 import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { ADD_EMP } from '../redux/action/action';
 
 const Add = () => {
-    // const navigate = useNavigate();
-    // const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [name,setName] = useState("")
     const [phone,setPhone] = useState("")
     const id = Math.floor(Math.random()*10000);
@@ -14,18 +15,14 @@ const Add = () => {
     const handleSubmit = (e)=>{
         e.preventDefault()
         const obj = {
-            userid : id,
             name : name,
             phone : phone
         }
-       
-
-
-
-
+        dispatch(ADD_EMP(obj))
         setName("")
         setPhone("")
         alert("add")
+        navigate('/view');
     }
 
     return (
