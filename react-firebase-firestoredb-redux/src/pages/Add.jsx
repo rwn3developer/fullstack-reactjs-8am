@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../component/Header'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import { ADD_EMP } from '../redux/action/action';
+import { useAuth } from '../context/GoogleAuth';
 
 const Add = () => {
+    const [gauth,setAuth]  = useAuth()
+    console.log(gauth);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [name,setName] = useState("")
@@ -24,6 +27,13 @@ const Add = () => {
         alert("add")
         navigate('/view');
     }
+
+    useEffect(()=>{
+        // let user = localStorage.getItem('token');
+        // if(!user){
+        //     navigate('/')
+        // }
+    },[])
 
     return (
         <>
