@@ -5,6 +5,7 @@ const routes = express.Router();
 const UserModel = require('../models/UserModel');
 
 const jwt = require('jsonwebtoken');
+const { verifyToken } = require('../middleware/Verifytoken');
 
 routes.post('/registeruser', async (req, res) => {
     try {
@@ -50,6 +51,9 @@ routes.post('/loginuser', async (req, res) => {
 
     }
 })
+
+
+
 
 
 

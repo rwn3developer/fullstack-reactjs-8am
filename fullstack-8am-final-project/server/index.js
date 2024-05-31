@@ -17,6 +17,7 @@ app.use(express.urlencoded());
 app.use(cors());
 
 app.use('/api/v1/auth',require('./routes/auth'))
+app.use('/api/v1/category',require('./routes/categoryRoute'))
 
 app.listen(port,(err)=>{
     if(err){
