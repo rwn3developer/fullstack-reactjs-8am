@@ -4,6 +4,9 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Register from './pages/register/Register';
 import Login from './pages/login/Login';
 import Home from './pages/home/Home';
+import Adminroute from './Private/Adminroute';
+import Category from './pages/admin/category/Category';
+
 
 function App() {
   return (
@@ -12,6 +15,14 @@ function App() {
               <Route path='/' element={<Login/>}/>
               <Route path='/register' element={<Register/>}/>
               <Route path='/home' element={<Home/>}/>
+
+
+              {/* admin route */}
+                <Route element={<Adminroute/>}>
+                    <Route path='/category' element={<Category/>}/>
+                </Route>
+                  
+             
           </Routes>
       </BrowserRouter>
   )

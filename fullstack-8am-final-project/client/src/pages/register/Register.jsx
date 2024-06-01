@@ -28,7 +28,12 @@ const Register = () => {
             });
             let res = await all.json();
             if(res.success){
-                toast.success(res.message)
+                toast.success(res.message) 
+                setName('')
+                setPhone('')
+                setEmail('')
+                setCity('')
+                setPassword('')
                 
             }else{
                 toast.danger(res.message)

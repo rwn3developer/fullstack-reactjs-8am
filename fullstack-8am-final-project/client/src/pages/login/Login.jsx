@@ -5,11 +5,15 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAuth } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
+    const [auth,setAuth] = useAuth();
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
+    const navigate = useNavigate()
    
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -23,9 +27,20 @@ const Login = () => {
                     email,password
                 })
             });
-            let res = await all.json();
+            let res = await all.json();  
             if(res.success){
+                setAuth({
+                    ...auth,
+                    token : res.token,
+                    user : res.user
+                })
+                localStorage.setItem('auth',JSON.stringify(res));
                 toast.success(res.message)
+                if(res.user?.role === "admin"){
+                    navigate('/category')
+                }else{
+                    navigate('/home')
+                }
                 
             }else{
                 toast.danger(res.message)

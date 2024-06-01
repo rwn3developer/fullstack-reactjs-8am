@@ -37,11 +37,12 @@ routes.post('/loginuser', async (req, res) => {
                 message: "Email and password not valid",
             })
         }
-        const token  = await jwt.sign({payload : user},'8am',{expiresIn : '24hr'})
+        const token  = await jwt.sign({payload : user},'8am',{expiresIn : '3hr'})
         return res.status(200).send({
             success : true,
             message : "Token is create",
-            token
+            token,
+            user
         })
     } catch (err) {
         return res.status(501).send({
