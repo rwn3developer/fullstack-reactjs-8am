@@ -37,11 +37,10 @@ const Login = () => {
                 localStorage.setItem('auth',JSON.stringify(res));
                 toast.success(res.message)
                 if(res.user?.role === "admin"){
-                    navigate('/category')
+                    navigate('/dashboard')
                 }else{
                     navigate('/home')
                 }
-                
             }else{
                 toast.danger(res.message)
             }
