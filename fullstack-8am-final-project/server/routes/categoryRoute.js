@@ -2,17 +2,21 @@ const express = require('express');
 
 const routes = express.Router();
 
-const UserModel = require('../models/UserModel');
+const CategoryModel = require('../models/CategoryModel');
 
 const jwt = require('jsonwebtoken');
 const { verifyToken } = require('../middleware/Verifytoken');
 
 
-routes.get('/',verifyToken,async(req,res)=>{
+routes.post('/createCategory',async(req,res)=>{
     try{
+        let category = await CategoryModel.create({
+            category : req.body.category
+        })
        res.send({
-            home : "category fetch",
-            user : req.user
+            success : true,
+            messege : "category add",
+            category
        })
     }catch(err){
         return res.status(501).send({

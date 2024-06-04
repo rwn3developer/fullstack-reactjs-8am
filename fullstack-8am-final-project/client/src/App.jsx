@@ -7,6 +7,7 @@ import Home from './pages/home/Home';
 import Adminroute from './Private/Adminroute';
 import Category from './pages/admin/category/Category';
 import Dashboard from './pages/admin/dashboard/Dashboard';
+import Product from './pages/admin/product/Product';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
                 <Route element={<Adminroute/>}>
                     <Route path='/dashboard' element={<Dashboard/>}/>
                     <Route path='/category' element={<Category/>}/>
+                    <Route path='/product' element={<Product/>}/>
                 </Route>
                   
              

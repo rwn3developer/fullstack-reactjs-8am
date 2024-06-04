@@ -13,13 +13,14 @@ const storage = multer.diskStorage({});
 
 const productImage = multer({storage : storage}).single('image');
 
-routes.post('/createProduct',verifyToken,productImage,async(req,res)=>{
+routes.post('/createProduct',productImage,async(req,res)=>{
     try{
         const {name,price,qty,description} = req.body;  
         const image = await cloudinary.uploader.upload(req.file.path);
         // res.send(image.secure_url)
         // console.log(image.public_id);
         const product = await ProductModel.create({
+            categoryId : req.body.categoryId,
             name : name,
             price : price,
             description : description,
@@ -39,9 +40,9 @@ routes.post('/createProduct',verifyToken,productImage,async(req,res)=>{
     }
 })
 
-routes.get('/',verifyToken,productImage,async(req,res)=>{
+routes.get('/',productImage,async(req,res)=>{
     try{
-        const products = await ProductModel.find({});
+        const products = await ProductModel.find({}).populate('categoryId');
         return res.status(200).send({
             success : true,
             message : "Product successfully fetch",
