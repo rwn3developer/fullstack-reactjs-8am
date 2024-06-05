@@ -3,7 +3,7 @@ const express = require('express');
 const routes = express.Router();
 
 const ProductModel = require('../models/ProductModel');
-const { verifyToken } = require('../middleware/Verifytoken');
+const { verifyToken,isAdmin } = require('../middleware/Verifytoken');
 
 const cloudinary = require('cloudinary').v2
 
@@ -40,7 +40,7 @@ routes.post('/createProduct',productImage,async(req,res)=>{
     }
 })
 
-routes.get('/',productImage,async(req,res)=>{
+routes.get('/',verifyToken,isAdmin,async(req,res)=>{
     try{
         const products = await ProductModel.find({}).populate('categoryId');
         return res.status(200).send({

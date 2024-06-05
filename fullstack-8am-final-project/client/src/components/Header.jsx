@@ -9,31 +9,16 @@ import { useAuth } from '../context/AuthContext';
 const Header = () => {
 
     const [auth, setAuth] = useAuth();
+    console.log(auth);
     const navigate = useNavigate()
 
-    // useEffect(()=>{
-    //     let originaltoken = auth?.token
-    //     let verifyToken = JSON.parse(localStorage.getItem('auth'))
-
-
-    //     if (originaltoken != verifyToken?.token) {
-    //         setAuth({
-    //             ...auth,
-    //             user: null,
-    //             token: null
-    //         })
-    //         alert('logout');
-    //         localStorage.removeItem('auth')
-    //         navigate('/');
-    //     }
-    // },[])
 
     const handleLogout = () => {
         setAuth({
             ...auth,
             user: null,
             token: null
-        })    
+        })
         localStorage.removeItem('auth')
         alert('logout');
         navigate('/');
@@ -49,21 +34,32 @@ const Header = () => {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ms-auto">
-
+                            
                             {
-                                !auth.token ? (
-                                    <>
-                                        <Nav.Link as={Link} to={`/`}>Login</Nav.Link>
-                                        <Nav.Link as={Link} to={`/register`}>Register</Nav.Link>
-                                    </>
-                                ) : (
-                                    <>
-                                        <Nav.Link onClick={() => handleLogout()}>Logout</Nav.Link>
-                                        <Nav.Link as={Link} to={`/home`}>Home</Nav.Link>
-                                        <Nav.Link >Product</Nav.Link>
-                                    </>
-                                )
-                            }
+
+                                   
+
+                                    !auth.token && !auth?.role === "user" ? (
+                                        <>
+                                            <Nav.Link as={Link} to={`/`}>Login</Nav.Link>
+                                            <Nav.Link as={Link} to={`/register`}>Register</Nav.Link>
+                                        </>
+                                    ) : (
+
+                                        
+
+                                        <>
+                                            <Nav.Link onClick={() => handleLogout()}>Logout</Nav.Link>
+                                            <Nav.Link as={Link} to={`/home`}>Home</Nav.Link>
+                                            <Nav.Link as={Link} to={`/product`}>Product</Nav.Link>
+                                        </>
+                                    )
+    
+                                }
+
+
+                                <Nav.Link as={Link} to={`/userproduct`}>Product</Nav.Link>
+                           
 
 
 

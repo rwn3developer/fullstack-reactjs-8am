@@ -29,12 +29,13 @@ const Login = () => {
             });
             let res = await all.json();  
             if(res.success){
+                localStorage.setItem('auth',JSON.stringify(res));
                 setAuth({
                     ...auth,
                     token : res.token,
                     user : res.user
                 })
-                localStorage.setItem('auth',JSON.stringify(res));
+                
                 toast.success(res.message)
                 if(res.user?.role === "admin"){
                     navigate('/dashboard')

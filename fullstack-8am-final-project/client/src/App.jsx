@@ -8,6 +8,7 @@ import Adminroute from './Private/Adminroute';
 import Category from './pages/admin/category/Category';
 import Dashboard from './pages/admin/dashboard/Dashboard';
 import Product from './pages/admin/product/Product';
+import Userproduct from './pages/product/Userproduct';
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
           <Routes>
               <Route path='/' element={<Login/>}/>
               <Route path='/register' element={<Register/>}/>
-              <Route path='/home' element={<Home/>}/>
+              <Route path='/userproduct' element={<Userproduct/>}/>
 
 
               {/* admin route */}

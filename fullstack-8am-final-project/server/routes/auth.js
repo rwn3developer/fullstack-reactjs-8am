@@ -5,7 +5,7 @@ const routes = express.Router();
 const UserModel = require('../models/UserModel');
 
 const jwt = require('jsonwebtoken');
-const { verifyToken } = require('../middleware/Verifytoken');
+const { verifyToken, isAdmin } = require('../middleware/Verifytoken');
 
 routes.post('/registeruser', async (req, res) => {
     try {
@@ -53,6 +53,20 @@ routes.post('/loginuser', async (req, res) => {
     }
 })
 
+
+//admin access
+routes.get('/adminAuth',verifyToken,isAdmin,async(req,res)=>{
+    try{
+        res.send({
+            success : true,
+            message : "admin access",
+            user : req.user.payload
+        })
+    }catch(err){
+        console.log(err);
+        return false;
+    }
+})
 
 
 
